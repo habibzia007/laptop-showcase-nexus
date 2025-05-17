@@ -41,3 +41,11 @@ export const buttonTap = {
   scale: 0.98,
   transition: { duration: 0.1 }
 };
+
+// MotionButton helper type for extending Button with motion props
+export type MotionButtonProps = {
+  whileTap?: any;
+  whileHover?: any;
+  initial?: any;
+  animate?: any;
+};

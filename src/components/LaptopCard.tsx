@@ -78,15 +78,15 @@ const LaptopCard = ({ laptop, onDelete, delay = 0 }: LaptopCardProps) => {
               </Link>
             </Button>
             {onDelete && (
-              <Button 
-                variant="outline" 
-                className="flex-none" 
-                onClick={() => onDelete(laptop.id)}
-                whileTap={buttonTap}
-                as={motion.button}
-              >
-                Delete
-              </Button>
+              <motion.div whileTap={buttonTap}>
+                <Button 
+                  variant="outline" 
+                  className="flex-none" 
+                  onClick={() => onDelete(laptop.id)}
+                >
+                  Delete
+                </Button>
+              </motion.div>
             )}
           </div>
         </CardFooter>
