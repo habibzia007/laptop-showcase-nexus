@@ -1,44 +1,61 @@
-
 import axios from 'axios';
 import { Laptop } from '@/types/laptop';
 
-const API_URL = '/api/laptops';
+const API_URL = 'http://localhost:3001/api/laptops';
 
 export const fetchLaptops = async (): Promise<Laptop[]> => {
-  // For development, let's use mock data initially
-  // This would be replaced with real API calls in production
-  return mockLaptops;
+  try {
+    const response = await axios.get(API_URL);
+    return response.data;
+  } catch (error) {
+    console.error('Error fetching laptops:', error);
+    // Fallback to mock data if API is not available
+    return mockLaptops;
+  }
 };
 
 export const fetchLaptopById = async (id: number): Promise<Laptop | null> => {
-  // In real application, this would be:
-  // const response = await axios.get(`${API_URL}/${id}`);
-  // return response.data;
-  return mockLaptops.find(laptop => laptop.id === id) || null;
+  try {
+    const response = await axios.get(`${API_URL}/${id}`);
+    return response.data;
+  } catch (error) {
+    console.error(`Error fetching laptop ${id}:`, error);
+    // Fallback to mock data if API is not available
+    return mockLaptops.find(laptop => laptop.id === id) || null;
+  }
 };
 
 export const createLaptop = async (laptop: Omit<Laptop, 'id'>): Promise<number> => {
-  // In real application, this would be:
-  // const response = await axios.post(API_URL, laptop);
-  // return response.data.id;
-  return Math.floor(Math.random() * 1000); // Mock ID
+  try {
+    const response = await axios.post(API_URL, laptop);
+    return response.data.id;
+  } catch (error) {
+    console.error('Error creating laptop:', error);
+    throw error;
+  }
 };
 
 export const updateLaptop = async (id: number, laptop: Partial<Laptop>): Promise<boolean> => {
-  // In real application, this would be:
-  // const response = await axios.put(`${API_URL}/${id}`, laptop);
-  // return response.data.success;
-  return true; // Mock success
+  try {
+    const response = await axios.put(`${API_URL}/${id}`, laptop);
+    return response.data.success;
+  } catch (error) {
+    console.error(`Error updating laptop ${id}:`, error);
+    throw error;
+  }
 };
 
 export const deleteLaptop = async (id: number): Promise<boolean> => {
-  // In real application, this would be:
-  // const response = await axios.delete(`${API_URL}/${id}`);
-  // return response.data.success;
-  return true; // Mock success
+  try {
+    const response = await axios.delete(`${API_URL}/${id}`);
+    return response.data.success;
+  } catch (error) {
+    console.error(`Error deleting laptop ${id}:`, error);
+    throw error;
+  }
 };
 
-// Mock data for development
+// Mock data for development (as fallback)
 export const mockLaptops: Laptop[] = [
   {
     id: 1,
